@@ -1318,7 +1318,7 @@ MonoBehaviour:
           PortName: Input1
         - IsDataPort: 1
           IsOutputPort: 0
-          DataIndex: 12
+          DataIndex: 14
           NodeId:
             m_NodeIndex: 17
           PortName: Input2
@@ -1336,12 +1336,6 @@ MonoBehaviour:
           PortName: GameObject
         - IsDataPort: 1
           IsOutputPort: 1
-          DataIndex: 12
-          NodeId:
-            m_NodeIndex: 18
-          PortName: ComponentData
-        - IsDataPort: 1
-          IsOutputPort: 1
           DataIndex: 0
           NodeId:
             m_NodeIndex: 18
@@ -1349,6 +1343,12 @@ MonoBehaviour:
         - IsDataPort: 1
           IsOutputPort: 1
           DataIndex: 0
+          NodeId:
+            m_NodeIndex: 18
+          PortName: ComponentData
+        - IsDataPort: 1
+          IsOutputPort: 1
+          DataIndex: 14
           NodeId:
             m_NodeIndex: 18
           PortName: ComponentData
@@ -1479,9 +1479,9 @@ MonoBehaviour:
         - m_NodeIndex: 14
         - m_NodeIndex: 16
         - m_NodeIndex: 17
+        - m_NodeIndex: 0
+        - m_NodeIndex: 0
         - m_NodeIndex: 18
-        - m_NodeIndex: 0
-        - m_NodeIndex: 0
         - m_NodeIndex: 19
         - m_NodeIndex: 20
         - m_NodeIndex: 21

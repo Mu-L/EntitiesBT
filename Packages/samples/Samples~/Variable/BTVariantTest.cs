@@ -19,11 +19,9 @@ namespace EntitiesBT.Sample
         // public long LongValue;
         // public SingleSerializedReaderAndWriterVariant SingleReaderAndWriter;
 
-        [field: AnySerializeField]
-        public SerializedReaderVariant<float> GenericFloatReader { get; private set; }
-
-        [AnySerializeField]
-        public SerializedReaderAndWriterVariant<float> GenericSingleReaderAndWriter;
+        [field: AnySerializeField] public IVariantReader<float> GenericFloatReader { get; private set; }
+        [AnySerializeField] public IVariantWriter<float> GenericFloatWriter;
+        [AnySerializeField] public SerializedReaderAndWriterVariant<float> GenericSingleReaderAndWriter;
 
         protected override unsafe void Build(ref VariablesTestNode data, BlobBuilder builder, ITreeNode<INodeDataBuilder>[] tree)
         {
@@ -35,6 +33,7 @@ namespace EntitiesBT.Sample
             // data.Long = LongValue;
             // SingleReaderAndWriter.Allocate(ref builder, ref data.SingleReaderAndWriter, this, tree);
             GenericFloatReader.Allocate(ref builder, ref data.GenericFloatReader, this, tree);
+            GenericFloatWriter.Allocate(ref builder, ref data.GenericFloatWriter, this, tree);
             GenericSingleReaderAndWriter.Allocate(ref builder, ref data.SingleReaderAndWriter, this, tree);
         }
     }
@@ -50,6 +49,7 @@ namespace EntitiesBT.Sample
         public BlobVariantReaderAndWriter<float> SingleReaderAndWriter;
         public long Long;
         public BlobVariantReader<float> GenericFloatReader;
+        public BlobVariantWriter<float> GenericFloatWriter;
 
         public NodeState Tick<TNodeBlob, TBlackboard>(int index, ref TNodeBlob blob, ref TBlackboard bb)
             where TNodeBlob : struct, INodeBlob

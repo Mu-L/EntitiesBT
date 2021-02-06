@@ -38,16 +38,23 @@ namespace AnySerializer
             {
                 var value = Deserialize(formatter, d.Data);
                 var field = type.GetField(d.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                Assert.IsNotNull(field);
-                Assert.IsTrue(field.IsAnySerializableField());
+                if (field == null) continue;
+                if (!field.IsAnySerializableField()) continue;
                 field.SetValue(obj, value);
             }
 
             static object Deserialize(IFormatter formatter, byte[] data)
             {
-                if (!data.Any()) return null;
+                if (data == null || !data.Any()) return null;
                 using var stream = new MemoryStream(data);
-                return formatter.Deserialize(stream);
+                try
+                {
+                    return formatter.Deserialize(stream);
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 

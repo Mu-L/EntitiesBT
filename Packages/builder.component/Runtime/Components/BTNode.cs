@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using AnySerializer;
 using EntitiesBT.Core;
 using EntitiesBT.Entities;
@@ -15,7 +13,7 @@ using Unity.Entities;
 namespace EntitiesBT.Components
 {
     [DisallowMultipleComponent, ExecuteInEditMode]
-    public abstract class BTNode : MonoBehaviour, INodeDataBuilder, ISerializationCallbackReceiver
+    public abstract class BTNode : AnySerializedMonoBehavior, INodeDataBuilder
     {
         public BehaviorNodeType BehaviorNodeType => NodeType.GetBehaviorNodeAttribute().Type;
         public int NodeId => NodeType.GetBehaviorNodeAttribute().Id;
@@ -90,21 +88,6 @@ namespace EntitiesBT.Components
             UnityEditor.AssetDatabase.Refresh();
         }
 #endif
-
-#region AnySerializer
-        [SerializeField]
-        private AnySerializeFieldData[] _anySerializedDataArray;
-
-        public void OnBeforeSerialize()
-        {
-            _anySerializedDataArray = new BinaryFormatter().SerializeAny(this).ToArray();
-        }
-
-        public void OnAfterDeserialize()
-        {
-            new BinaryFormatter().DeserializeAny(this, _anySerializedDataArray);
-        }
-#endregion
     }
     
     public abstract class BTNode<T> : BTNode where T : unmanaged, INodeData

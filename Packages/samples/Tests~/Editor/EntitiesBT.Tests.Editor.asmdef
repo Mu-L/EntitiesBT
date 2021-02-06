@@ -1,5 +1,6 @@
 {
     "name": "EntitiesBT.Tests.Editor",
+    "rootNamespace": "",
     "references": [
         "GUID:0acc523941302664db1f4e527237feb3",
         "GUID:27619889b8ba8c24980f49ee34dbb44a",
@@ -7,7 +8,7 @@
         "GUID:734d92eba21c94caba915361bd5ac177",
         "GUID:0db6da4b0e13948bab4bf99649766bad",
         "GUID:c7babe7561eb244059259745ef27b866",
-        "GUID:d3630359ae08047918d5cd6cddd51767"
+        "GUID:bd2252f413b7a3340ab5beaffbaf7796"
     ],
     "includePlatforms": [
         "Editor"
