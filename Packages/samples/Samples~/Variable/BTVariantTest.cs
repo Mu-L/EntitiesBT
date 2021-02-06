@@ -1,4 +1,4 @@
-using EntitiesBT.Attributes;
+using AnySerializer;
 using EntitiesBT.Components;
 using EntitiesBT.Core;
 using EntitiesBT.DebugView;
@@ -11,23 +11,31 @@ namespace EntitiesBT.Sample
 {
     public class BTVariantTest : BTNode<VariablesTestNode>
     {
-        [SerializeReference, SerializeReferenceButton] public Int64VariantReader LongReader;
-        public string String;
-        public int[] IntArray;
-        [SerializeReference, SerializeReferenceButton] public Int64VariantWriter LongWriter;
-        [SerializeReference, SerializeReferenceButton] public SingleVariantReader SingleReader;
-        public long LongValue;
-        public SingleSerializedReaderAndWriterVariant SingleReaderAndWriter;
+        // [SerializeReference, SerializeReferenceButton] public Int64VariantReader LongReader;
+        // public string String;
+        // public int[] IntArray;
+        // [SerializeReference, SerializeReferenceButton] public Int64VariantWriter LongWriter;
+        // [SerializeReference, SerializeReferenceButton] public SingleVariantReader SingleReader;
+        // public long LongValue;
+        // public SingleSerializedReaderAndWriterVariant SingleReaderAndWriter;
+
+        [field: AnySerializeField]
+        public SerializedReaderVariant<float> GenericFloatReader { get; private set; }
+
+        [AnySerializeField]
+        public SerializedReaderAndWriterVariant<float> GenericSingleReaderAndWriter;
 
         protected override unsafe void Build(ref VariablesTestNode data, BlobBuilder builder, ITreeNode<INodeDataBuilder>[] tree)
         {
-            LongReader.Allocate(ref builder, ref data.LongReader, this, tree);
-            builder.AllocateString(ref data.String, String);
-            builder.AllocateArray(ref data.IntArray, IntArray);
-            LongWriter.Allocate(ref builder, ref data.LongWriter, this, tree);
-            SingleReader.Allocate(ref builder, ref data.SingleReader, this, tree);
-            data.Long = LongValue;
-            SingleReaderAndWriter.Allocate(ref builder, ref data.SingleReaderAndWriter, this, tree);
+            // LongReader.Allocate(ref builder, ref data.LongReader, this, tree);
+            // builder.AllocateString(ref data.String, String);
+            // builder.AllocateArray(ref data.IntArray, IntArray);
+            // LongWriter.Allocate(ref builder, ref data.LongWriter, this, tree);
+            // SingleReader.Allocate(ref builder, ref data.SingleReader, this, tree);
+            // data.Long = LongValue;
+            // SingleReaderAndWriter.Allocate(ref builder, ref data.SingleReaderAndWriter, this, tree);
+            GenericFloatReader.Allocate(ref builder, ref data.GenericFloatReader, this, tree);
+            GenericSingleReaderAndWriter.Allocate(ref builder, ref data.SingleReaderAndWriter, this, tree);
         }
     }
     
@@ -41,6 +49,7 @@ namespace EntitiesBT.Sample
         public BlobVariantReader<float> SingleReader;
         public BlobVariantReaderAndWriter<float> SingleReaderAndWriter;
         public long Long;
+        public BlobVariantReader<float> GenericFloatReader;
 
         public NodeState Tick<TNodeBlob, TBlackboard>(int index, ref TNodeBlob blob, ref TBlackboard bb)
             where TNodeBlob : struct, INodeBlob
@@ -67,6 +76,8 @@ namespace EntitiesBT.Sample
         public float FloatVariable;
         public long LongValue;
 
+        public float GenericFloatVariable;
+
         public override void Tick()
         {
             var blob = Blob;
@@ -78,6 +89,7 @@ namespace EntitiesBT.Sample
             String = data.String.ToString();
             IntArray = data.IntArray.ToArray();
             LongValue = data.Long;
+            GenericFloatVariable = data.GenericFloatReader.Read(Index, ref blob, ref bb);
         }
     }
 }

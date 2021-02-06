@@ -1,0 +1,16 @@
+{
+    "name": "AnySerializer",
+    "rootNamespace": "",
+    "references": [
+        "GUID:abe4851e67df59644865a60dae54a845"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
